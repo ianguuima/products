@@ -20,7 +20,7 @@ public class ProductService {
         return productRepository.save(createProductRequest.toProduct());
     }
 
-    public Optional<Product> findById(String id) {
+    public Optional<Product> findById(Long id) {
         return productRepository.findById(id);
     }
 }

@@ -19,7 +19,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProduct(@PathVariable String id) {
+    public ResponseEntity<Product> getProduct(@PathVariable Long id) {
         var product = productService.findById(id);
         return ResponseEntity.of(product);
     }

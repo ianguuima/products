@@ -11,7 +11,7 @@ public class CreateProductRequest {
     private final String name;
     private final String description;
 
-    @Min(value = 1, message = "Min value is 1")
+    @Min(value = 1, message = "Minimum value for price is 1")
     private final double price;
 
     public Product toProduct() {
