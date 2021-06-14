@@ -2,11 +2,13 @@ package me.ianguuima.product.controllers;
 
 import me.ianguuima.product.models.product.Product;
 import me.ianguuima.product.models.product.requests.CreateProductRequest;
+import me.ianguuima.product.models.product.requests.UpdateProductRequest;
 import me.ianguuima.product.services.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/products")
@@ -24,10 +26,22 @@ public class ProductController {
         return ResponseEntity.of(product);
     }
 
+    @GetMapping
+    public ResponseEntity<Collection<Product>> getAllProducts() {
+        var products = productService.findAllProducts();
+        return ResponseEntity.ok(products);
+    }
+
     @PostMapping
     public ResponseEntity<Product> createProduct(@RequestBody @Valid CreateProductRequest createProductRequest) {
         var product = productService.save(createProductRequest);
         return ResponseEntity.ok(product);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody @Valid UpdateProductRequest updateProductRequest) {
+        var product = productService.update(id, updateProductRequest);
+        return ResponseEntity.of(product);
     }
 
 }
