@@ -1,5 +1,6 @@
 package me.ianguuima.product.services;
 
+import me.ianguuima.criteria.ProductCriteria;
 import me.ianguuima.product.models.product.Product;
 import me.ianguuima.product.models.product.requests.CreateProductRequest;
 import me.ianguuima.product.models.product.requests.UpdateProductRequest;
@@ -7,6 +8,7 @@ import me.ianguuima.product.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,7 +28,7 @@ public class ProductService {
         return productRepository.findById(id);
     }
 
-    public Collection<Product> findAll() {
+    public List<Product> findAll() {
         return productRepository.findAll();
     }
 
@@ -40,5 +42,15 @@ public class ProductService {
             productRepository.delete(product);
             return true;
         }).orElse(false);
+    }
+
+    public Collection<Product> search(List<ProductCriteria> criteria) {
+        List<Product> products = findAll();
+
+        for (ProductCriteria criterion : criteria) {
+            products = criterion.meetCriteria(products);
+        }
+
+        return products;
     }
 }
