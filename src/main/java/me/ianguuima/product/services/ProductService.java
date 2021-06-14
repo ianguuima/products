@@ -26,12 +26,19 @@ public class ProductService {
         return productRepository.findById(id);
     }
 
-    public Collection<Product> findAllProducts() {
+    public Collection<Product> findAll() {
         return productRepository.findAll();
     }
 
     public Optional<Product> update(Long id, UpdateProductRequest updateProductRequest) {
         return findById(id)
                 .map(product -> productRepository.save(updateProductRequest.toProduct(id)));
+    }
+
+    public Boolean delete(Long id) {
+        return findById(id).map(product -> {
+            productRepository.delete(product);
+            return true;
+        }).orElse(false);
     }
 }

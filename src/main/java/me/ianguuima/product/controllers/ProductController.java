@@ -28,7 +28,7 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<Collection<Product>> getAllProducts() {
-        var products = productService.findAllProducts();
+        var products = productService.findAll();
         return ResponseEntity.ok(products);
     }
 
@@ -42,6 +42,13 @@ public class ProductController {
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody @Valid UpdateProductRequest updateProductRequest) {
         var product = productService.update(id, updateProductRequest);
         return ResponseEntity.of(product);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
+        var deletionResult = productService.delete(id);
+        if (deletionResult) return ResponseEntity.ok().build();
+        return ResponseEntity.notFound().build();
     }
 
 }
