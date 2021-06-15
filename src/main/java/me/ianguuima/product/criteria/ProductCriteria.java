@@ -1,4 +1,4 @@
-package me.ianguuima.criteria;
+package me.ianguuima.product.criteria;
 
 import me.ianguuima.product.models.product.Product;
 

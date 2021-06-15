@@ -1,9 +1,8 @@
-package me.ianguuima.criteria;
+package me.ianguuima.product.criteria;
 
 import lombok.AllArgsConstructor;
 import me.ianguuima.product.models.product.Product;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 

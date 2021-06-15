@@ -1,9 +1,8 @@
-package me.ianguuima.criteria;
+package me.ianguuima.product.criteria;
 
 import lombok.AllArgsConstructor;
 import me.ianguuima.product.models.product.Product;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,9 +16,9 @@ public class NameAndDescriptionCriteria implements ProductCriteria {
         if (nameAndDescription.equalsIgnoreCase("")) return products;
         return products.stream()
                 .filter(product ->
-                        product.getName().startsWith(nameAndDescription)
+                        product.getName().contains(nameAndDescription)
                                 ||
-                        product.getDescription().startsWith(nameAndDescription)).collect(Collectors.toList()
+                        product.getDescription().contains(nameAndDescription)).collect(Collectors.toList()
                 );
     }
 

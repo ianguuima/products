@@ -1,9 +1,9 @@
 package me.ianguuima.product.controllers;
 
-import me.ianguuima.criteria.MaxPriceCriteria;
-import me.ianguuima.criteria.MinPriceCriteria;
-import me.ianguuima.criteria.NameAndDescriptionCriteria;
-import me.ianguuima.criteria.ProductCriteria;
+import me.ianguuima.product.criteria.MaxPriceCriteria;
+import me.ianguuima.product.criteria.MinPriceCriteria;
+import me.ianguuima.product.criteria.NameAndDescriptionCriteria;
+import me.ianguuima.product.criteria.ProductCriteria;
 import me.ianguuima.product.models.product.Product;
 import me.ianguuima.product.models.product.requests.CreateProductRequest;
 import me.ianguuima.product.models.product.requests.UpdateProductRequest;
