@@ -127,17 +127,17 @@ class ProductServiceTest {
     }
 
     @Test
-    public void search_shouldApplyCriteriaAndReturnAListOfProducts_whenProvideAListOfCriteria() {
+    public void search_shouldReturnAllProductsCorrespondingToCriteria_whenProvideAListOfCriteria() {
         var allProductsInDatabase = List.of(
                 getRandomProduct(5),
                 getRandomProduct(3),
                 getRandomProduct(2)
         );
-        var minPriceCriteria = new MinPriceCriteria(4);
 
         when(productRepository.findAll()).thenReturn(allProductsInDatabase);
 
-        var filteredProducts = productService.search(singletonList(minPriceCriteria));
+        var minPriceCriteria = new MinPriceCriteria(4);
+        var filteredProducts = productService.search(singletonList(minPriceCriteria));;
 
         assertThat(filteredProducts).hasSize(1);
         assertThat(filteredProducts).extracting(Product::getPrice).first().isEqualTo(5.0);
