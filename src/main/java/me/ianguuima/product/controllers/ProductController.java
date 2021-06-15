@@ -4,21 +4,17 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import me.ianguuima.product.criteria.MaxPriceCriteria;
-import me.ianguuima.product.criteria.MinPriceCriteria;
-import me.ianguuima.product.criteria.NameAndDescriptionCriteria;
-import me.ianguuima.product.criteria.ProductCriteria;
 import me.ianguuima.product.models.product.Product;
 import me.ianguuima.product.models.product.requests.CreateProductRequest;
 import me.ianguuima.product.models.product.requests.UpdateProductRequest;
 import me.ianguuima.product.services.ProductService;
+import me.ianguuima.product.models.product.ProductQueryBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Collection;
-import java.util.List;
 
 @RestController
 @RequestMapping("/products")
@@ -84,13 +80,13 @@ public class ProductController {
             @RequestParam(required = false, defaultValue = "0") Long minPrice,
             @RequestParam(required = false, defaultValue = "0") Long maxPrice
     ) {
-        List<ProductCriteria> criteria = List.of(
-                new MaxPriceCriteria(maxPrice),
-                new MinPriceCriteria(minPrice),
-                new NameAndDescriptionCriteria(q)
-        );
+        var productCriteriaList = new ProductQueryBuilder()
+                .nameAndDescription(q)
+                .minPrice(minPrice)
+                .maxPrice(maxPrice)
+                .getCriteria();
 
-        var searchResult = productService.search(criteria);
+        var searchResult = productService.search(productCriteriaList);
         return ResponseEntity.ok(searchResult);
     }
 

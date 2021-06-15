@@ -5,6 +5,7 @@ import me.ianguuima.product.models.product.Product;
 import me.ianguuima.product.models.product.requests.CreateProductRequest;
 import me.ianguuima.product.models.product.requests.UpdateProductRequest;
 import me.ianguuima.product.repositories.ProductRepository;
+import me.ianguuima.product.validators.ProductCriteriaChecker;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -45,12 +46,6 @@ public class ProductService {
     }
 
     public Collection<Product> search(List<ProductCriteria> criteria) {
-        List<Product> products = findAll();
-
-        for (ProductCriteria criterion : criteria) {
-            products = criterion.meetCriteria(products);
-        }
-
-        return products;
+        return new ProductCriteriaChecker(criteria).validate(findAll());
     }
 }
