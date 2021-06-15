@@ -2,7 +2,6 @@ package me.ianguuima.product.controllers;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito;
 import org.mockito.Mock;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.core.MethodParameter;
@@ -12,17 +11,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
-import java.util.Objects;
-
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.*;
 
 @ExtendWith(SpringExtension.class)
-class ErrorHandlerControllerTest {
+class ErrorHandlerControllerAdviceTest {
 
     @SpyBean
-    private ErrorHandlerController errorHandlerController;
+    private ErrorHandlerControllerAdvice errorHandlerControllerAdvice;
 
     @Mock
     private MethodParameter methodParameter;
@@ -41,7 +38,7 @@ class ErrorHandlerControllerTest {
 
         when(exception.getFieldError()).thenReturn(fieldError);
 
-        var validationErrorResponse = errorHandlerController
+        var validationErrorResponse = errorHandlerControllerAdvice
                 .handleMethodArgumentNotValidException(exception);
 
         assertEquals(HttpStatus.BAD_REQUEST, validationErrorResponse.getStatusCode());
