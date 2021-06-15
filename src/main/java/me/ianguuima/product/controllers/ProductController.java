@@ -8,6 +8,7 @@ import me.ianguuima.product.models.product.Product;
 import me.ianguuima.product.models.product.requests.CreateProductRequest;
 import me.ianguuima.product.models.product.requests.UpdateProductRequest;
 import me.ianguuima.product.services.ProductService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +29,7 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<Product> createProduct(@RequestBody @Valid CreateProductRequest createProductRequest) {
         var product = productService.save(createProductRequest);
-        return ResponseEntity.ok(product);
+        return ResponseEntity.status(HttpStatus.CREATED).body(product);
     }
 
     @PutMapping("/{id}")

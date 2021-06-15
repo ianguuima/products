@@ -1,11 +1,13 @@
 package me.ianguuima.product.models.product.requests;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import me.ianguuima.product.models.product.Product;
 
 import javax.validation.constraints.Min;
 
 @AllArgsConstructor
+@Getter
 public class CreateProductRequest {
 
     private final String name;
