@@ -14,7 +14,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.Objects;
 
+import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.BDDMockito.*;
 
 @ExtendWith(SpringExtension.class)
 class ErrorHandlerControllerTest {
@@ -31,19 +33,19 @@ class ErrorHandlerControllerTest {
     @Test
     public void handleMethodArgumentNotValidException_shouldReturnValidationErrorResponse_whenExceptionIsThrown() {
         MethodArgumentNotValidException exception = new MethodArgumentNotValidException(methodParameter, bindingResult);
-
         FieldError fieldError = new FieldError(
                 "random Object",
                 "random Field",
                 "This field can't be modified."
         );
-        BDDMockito.when(exception.getFieldError()).thenReturn(fieldError);
+
+        when(exception.getFieldError()).thenReturn(fieldError);
 
         var validationErrorResponse = errorHandlerController
                 .handleMethodArgumentNotValidException(exception);
 
         assertEquals(HttpStatus.BAD_REQUEST, validationErrorResponse.getStatusCode());
-        assertEquals("This field can't be modified.", Objects.requireNonNull(validationErrorResponse.getBody()).getMessage());
+        assertEquals("This field can't be modified.", requireNonNull(validationErrorResponse.getBody()).getMessage());
     }
 
 }
