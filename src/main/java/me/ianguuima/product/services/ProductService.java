@@ -1,6 +1,6 @@
 package me.ianguuima.product.services;
 
-import me.ianguuima.criteria.ProductCriteria;
+import me.ianguuima.product.criteria.ProductCriteria;
 import me.ianguuima.product.models.product.Product;
 import me.ianguuima.product.models.product.requests.CreateProductRequest;
 import me.ianguuima.product.models.product.requests.UpdateProductRequest;
